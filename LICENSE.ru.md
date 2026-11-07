@@ -1,6 +1,6 @@
 # LICENSE
 
-SpellcheckerLab - C++ библиотека для демонстрации работы алгоритмов исправления текста
+ClusteringDemo - библиотека на C++ для демонстрации работы алгоритмов кластеризации
 Copyright (C) 2026 Stanislav Furmavnin (GitHub: saintninja)
 
 ## Лицензия академической честности (Educational Integrity License — EIL) v1.0
