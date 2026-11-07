@@ -10,6 +10,8 @@
 #include <utility>
 #include <vector>
 
+#include "clustering/core/result.hpp"
+
 namespace clustering::tests {
 
 struct TestFailure : std::runtime_error {
@@ -27,6 +29,14 @@ inline void ExpectNear(double actual, double expected, double tolerance,
   if (!(std::abs(actual - expected) <= tolerance)) {
     throw TestFailure(std::format("{}: expected {} but got {}", description, expected, actual));
   }
+}
+
+template <typename Value>
+Value ValueOrFail(Result<Value> result, const std::string& description) {
+  if (!result) {
+    throw TestFailure(description + ": " + result.error().message);
+  }
+  return std::move(*result);
 }
 
 template <typename Action>

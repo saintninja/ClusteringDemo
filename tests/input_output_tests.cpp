@@ -20,10 +20,9 @@ std::filesystem::path WriteTemporaryFile(const std::string& name, const std::str
 
 void CsvReaderHandlesByteOrderMarkAndWindowsLineEndings() {
   const auto path = WriteTemporaryFile("clustering_bom.csv", "\xEF\xBB\xBF" "a,b\r\n1,2\r\n3,4\r\n");
-  const auto table = ReadCsv(path);
-  Expect(table.has_value(), "file must be readable");
-  Expect(table->header.front() == "a", "byte order mark must be stripped");
-  Expect(table->rows.size() == 2 && table->rows[1][1] == "4", "rows must be parsed");
+  const CsvTable table = ValueOrFail(ReadCsv(path), "file must be readable");
+  Expect(table.header.front() == "a", "byte order mark must be stripped");
+  Expect(table.rows.size() == 2 && table.rows[1][1] == "4", "rows must be parsed");
 }
 
 void CsvReaderReportsRaggedRows() {
@@ -33,26 +32,26 @@ void CsvReaderReportsRaggedRows() {
 
 void LoaderSkipsRowsWithMissingValues() {
   const auto path = WriteTemporaryFile("clustering_missing.csv", "x,y,class\n1,2,u\nNA,3,v\n4,,v\n5,6,v\n");
-  const auto table = ReadCsv(path);
-  const auto dataset =
-      LoadDataset(*table, {.feature_columns = {"x", "y"}, .label_column = std::string("class")});
-  Expect(dataset.has_value(), "dataset must load");
-  Expect(dataset->features.RowCount() == 2, "two complete rows remain");
-  Expect(dataset->skipped_row_count == 2, "two incomplete rows are skipped");
-  Expect(dataset->label_texts == std::vector<std::string>({"u", "v"}), "label texts are kept");
-  Expect(dataset->source_rows == std::vector<std::size_t>({0, 3}), "source rows are remembered");
+  const CsvTable table = ValueOrFail(ReadCsv(path), "file must be readable");
+  const Dataset dataset = ValueOrFail(
+      LoadDataset(table, {.feature_columns = {"x", "y"}, .label_column = std::string("class")}),
+      "dataset must load");
+  Expect(dataset.features.RowCount() == 2, "two complete rows remain");
+  Expect(dataset.skipped_row_count == 2, "two incomplete rows are skipped");
+  Expect(dataset.label_texts == std::vector<std::string>({"u", "v"}), "label texts are kept");
+  Expect(dataset.source_rows == std::vector<std::size_t>({0, 3}), "source rows are remembered");
 }
 
 void LoaderRejectsNonNumericFeatures() {
   const auto path = WriteTemporaryFile("clustering_text.csv", "x,y\n1,abc\n");
-  const auto table = ReadCsv(path);
-  Expect(!LoadDataset(*table, {.feature_columns = {"x", "y"}}).has_value(), "text is not numeric");
+  const CsvTable table = ValueOrFail(ReadCsv(path), "file must be readable");
+  Expect(!LoadDataset(table, {.feature_columns = {"x", "y"}}).has_value(), "text is not numeric");
 }
 
 void LoaderRejectsUnknownColumn() {
   const auto path = WriteTemporaryFile("clustering_unknown.csv", "x,y\n1,2\n");
-  const auto table = ReadCsv(path);
-  Expect(!LoadDataset(*table, {.feature_columns = {"x", "z"}}).has_value(), "unknown column");
+  const CsvTable table = ValueOrFail(ReadCsv(path), "file must be readable");
+  Expect(!LoadDataset(table, {.feature_columns = {"x", "z"}}).has_value(), "unknown column");
 }
 
 void LoaderSamplesRequestedNumberOfRows() {
@@ -60,9 +59,11 @@ void LoaderSamplesRequestedNumberOfRows() {
   for (int value = 0; value < 50; ++value) {
     content += std::to_string(value) + "\n";
   }
-  const auto table = ReadCsv(WriteTemporaryFile("clustering_sample.csv", content));
-  const auto dataset = LoadDataset(*table, {.feature_columns = {"x"}, .sample_size = 10, .seed = 3});
-  Expect(dataset->features.RowCount() == 10, "sample size must be respected");
+  const CsvTable table =
+      ValueOrFail(ReadCsv(WriteTemporaryFile("clustering_sample.csv", content)), "file must be readable");
+  const Dataset dataset = ValueOrFail(
+      LoadDataset(table, {.feature_columns = {"x"}, .sample_size = 10, .seed = 3}), "dataset must load");
+  Expect(dataset.features.RowCount() == 10, "sample size must be respected");
 }
 
 void CommandLineParsesFullConfiguration() {
@@ -111,11 +112,11 @@ void ClusteredCsvMergesTrainingAndClusteredRows() {
   const std::vector<int> labels{4, 5};
   const auto path = std::filesystem::temp_directory_path() / "clustering_merged.csv";
   Expect(WriteClusteredCsv(path, input, sources, labels).has_value(), "writing succeeds");
-  const auto merged = ReadCsv(path);
-  Expect(merged->header == std::vector<std::string>({"x", "note", "cluster", "origin"}), "header");
-  Expect(merged->rows[0] == std::vector<std::string>({"9", "t", "4", "training"}),
+  const CsvTable merged = ValueOrFail(ReadCsv(path), "merged file must be readable");
+  Expect(merged.header == std::vector<std::string>({"x", "note", "cluster", "origin"}), "header");
+  Expect(merged.rows[0] == std::vector<std::string>({"9", "t", "4", "training"}),
          "training columns are mapped by name");
-  Expect(merged->rows[1] == std::vector<std::string>({"2", "b", "5", "clustered"}), "clustered row");
+  Expect(merged.rows[1] == std::vector<std::string>({"2", "b", "5", "clustered"}), "clustered row");
 }
 
 void CommandLineRequiresAlgorithmSpecificOptions() {
