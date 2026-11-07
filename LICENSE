@@ -1,0 +1,56 @@
+SpellcheckerLab - pure C++ library for demo spellchecking
+Copyright (C) 2026 Stanislav Furmavnin (GitHub: saintninja)
+
+LICENSE
+
+
+Educational Integrity License (EIL) v1.0
+
+
+Preamble
+
+This license is designed to protect academic integrity while fostering open-source collaboration in professional and personal development contexts. The authors of this software recognize the value of learning through independent effort and seek to prevent the misuse of this code for academic dishonesty.
+
+1. Definitions
+
+- "Software" refers to the source code, object code, documentation, and any other materials provided in this repository, including but not limited to all associated source files, headers, configuration files, and assets.
+- "Derivative Work" refers to any work that is based upon, derived from, or incorporates all or part of the Software, including translations, modifications, extensions, or adaptations.
+- "Student" refers to any individual currently enrolled in or auditing a course at an educational institution (including but not limited to schools, colleges, universities, bootcamps, or online learning platforms) where assignments or evaluations are conducted.
+- "Academic Work" refers to any task, assignment, laboratory work, project, exam, or thesis that is evaluated by an educational institution, instructor, or automated grading system, regardless of whether it contributes to a final grade.
+- "Permitted Use" refers to the use of the Software in professional commercial projects ("Production"), open-source projects, or personal, non-evaluated projects ("Pet Projects").
+
+2. Grant of License and Copyleft Obligation
+
+Subject to the terms of this License, the authors hereby grant you a perpetual, worldwide, non-exclusive, royalty-free license to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software for Permitted Use only.
+Copyleft Requirement:
+You may modify and distribute the Software or its Derivative Works, provided that you subject the modified Software or Derivative Works to the exact same terms and conditions of this Educational Integrity License (EIL). You must include a copy of this License and all original copyright notices with every copy or Derivative Work you distribute. You cannot relicense the Software or any part of it under any other terms (such as MIT, Apache, or GPL).
+Permitted Use includes:
+- Integration into commercial applications.
+- Use in personal hobby projects that are not part of an academic curriculum or evaluation.
+- Modification and redistribution of the code for non-academic purposes, strictly subject to the Copyleft Requirement above.
+
+3. Strict Prohibition for Academic Use
+
+You are strictly prohibited from using the Software, or any Derivative Work based on it, for any Academic Work. This prohibition includes, but is not limited to:
+- Submitting the Software or any Derivative Work, in whole or in part, as your own work for any laboratory, practical, homework, or exam assignment.
+- Using the Software or any Derivative Work as a reference implementation to copy logic, structure, architecture, or algorithms for an Academic Work.
+- Distributing the Software or any Derivative Work to other Students for the purpose of completing their Academic Works.
+
+4. Consequences of Violation and Termination
+
+Any use of the Software or its Derivative Works in violation of Section 3 constitutes a material breach of this License. In the event of such a violation:
+1. Automatic Termination: The license granted to the violating user is immediately and automatically terminated. Any further use, retention, or distribution of the Software or its Derivative Works by the user becomes an un-licensed copyright infringement.
+2. Academic Notification: The authors or any third party reserve the right to notify the user's educational institution, instructors, or dean's office regarding the copyright violation and academic integrity breach.
+3. No Legal Recourse: The authors of this Software bear no responsibility for any academic, disciplinary, or legal consequences imposed by the educational institution.
+
+5. Detection and Verification
+
+The authors reserve the right to provide educational institutions, instructors, and automated grading platforms with tools, methods, signature metadata, or source code samples to detect the use of this Software or its Derivative Works in submitted works. Instructors are explicitly authorized to use plagiarism detection systems and code similarity analysis to enforce the academic integrity spirit of this license.
+
+6. Disclaimer
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+7. Acceptance
+
+By downloading, copying, modifying, or using this Software, you agree to be bound by the terms of this License. If you are a Student, you acknowledge that violating these terms constitutes a breach of contract and copyright infringement, which may be reported to your educational institution.
